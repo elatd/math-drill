@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#3b6bff">
+  <meta name="description" content="A math drill where every answer makes the show and the music bigger and bigger.">
+  <title>Japanese Math Drill</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="lv0">
+  <div id="paper" aria-hidden="true"></div>
+  <div id="rays-fallback" aria-hidden="true"></div>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <canvas id="fx-back" aria-hidden="true"></canvas>
+
+  <main id="app">
+    <!-- Title -->
+    <section id="screen-title" class="screen is-active" aria-labelledby="logo">
+      <button type="button" class="icon-btn settings-btn" id="open-settings" aria-label="Settings" aria-haspopup="dialog">
+        <svg viewBox="-16 -16 32 32" aria-hidden="true"><circle r="10.6" fill="none" stroke="#1b1d4d" stroke-width="9" stroke-dasharray="4.2 4.12"/><circle r="10.6" fill="#ffd23f" stroke="#1b1d4d" stroke-width="2.4"/><circle r="4.4" fill="#fff" stroke="#1b1d4d" stroke-width="2.4"/></svg>
+      </button>
+      <button type="button" class="icon-btn settings-btn help-btn" id="open-guide" aria-label="How to play" aria-haspopup="dialog">
+        <svg viewBox="-16 -16 32 32" aria-hidden="true"><path d="M-6 -4 C-6 -7 -3 -9 0 -9 C3 -9 6 -7 6 -4 C6 -1 0 0 0 3 M0 9v.01" fill="none" stroke="#1b1d4d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h1 id="logo" class="logo" aria-label="Japanese Math Drill">
+        <svg class="logo-burst" viewBox="-100 -100 200 200" aria-hidden="true"><path id="logo-burst-path" fill="#ffd23f" stroke="#1b1d4d" stroke-width="5" stroke-linejoin="round"/><path id="logo-burst-inner" fill="#ff7ab6" stroke="#1b1d4d" stroke-width="4" stroke-linejoin="round"/></svg>
+        <span class="logo-pre" aria-hidden="true">JAPANESE</span>
+        <span class="logo-top" aria-hidden="true"><i data-c="M">M</i><i data-c="A">A</i><i data-c="T">T</i><i data-c="H">H</i></span>
+        <span class="logo-ribbon" aria-hidden="true"><svg class="ribbon-bg" viewBox="0 0 300 70" preserveAspectRatio="none"><path d="M4 22 L34 16 L28 36 L40 58 L6 62 L18 42Z" fill="#2a4fd6" stroke="#1b1d4d" stroke-width="4" stroke-linejoin="round"/><path d="M296 22 L266 16 L272 36 L260 58 L294 62 L282 42Z" fill="#2a4fd6" stroke="#1b1d4d" stroke-width="4" stroke-linejoin="round"/><path d="M30 10 Q150 -4 270 10 L270 56 Q150 42 30 56Z" fill="#3b6bff" stroke="#1b1d4d" stroke-width="4.5" stroke-linejoin="round"/><path d="M42 18 Q150 6 258 18" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="7 6" stroke-linecap="round" opacity=".7"/></svg><i>D</i><i>R</i><i>I</i><i>L</i><i>L</i></span>
+        <span class="logo-bits" aria-hidden="true"><b style="--x:-46%;--y:4%;--r:-18deg;--c:#3fdcb0">＋</b><b style="--x:44%;--y:-2%;--r:14deg;--c:#a77bff">×</b><b style="--x:-34%;--y:104%;--r:10deg;--c:#ff4f6d">÷</b><b style="--x:36%;--y:102%;--r:-12deg;--c:#ffd23f">−</b></span>
+      </h1>
+      <div class="title-stage" id="title-stage" aria-hidden="true"></div>
+      <div class="modes" id="modes">
+        <button type="button" id="start" class="big-btn level-btn">My Level<small id="level-sub">Starts with a skill check</small></button>
+        <button type="button" id="start-review" class="sub-btn review-btn review-main" hidden>Review <b id="review-count">0</b></button>
+        <div class="grades" role="group" aria-label="By grade">
+          <button type="button" data-grade="1"><small>Grade</small>1</button><button type="button" data-grade="2"><small>Grade</small>2</button><button type="button" data-grade="3"><small>Grade</small>3</button>
+          <button type="button" data-grade="4"><small>Grade</small>4</button><button type="button" data-grade="5"><small>Grade</small>5</button><button type="button" data-grade="6"><small>Grade</small>6</button>
+        </div>
+        <div class="mode-row">
+          <button type="button" id="open-tree" class="sub-btn">Skill Tree <b id="tree-badge"></b></button>
+          <button type="button" id="open-trophy" class="sub-btn">Trophies <b id="trophy-badge"></b></button>
+          <button type="button" id="open-collect" class="sub-btn">Collection <b id="collect-badge"></b></button>
+        </div>
+      </div>
+      <section class="quest-card" id="quests" aria-labelledby="quest-title">
+        <div class="quest-head"><h2 id="quest-title">Today's Quests</h2><span class="quest-reward" id="quest-reward"></span></div>
+        <ol class="quest-list" id="quest-list"></ol>
+      </section>
+      <section class="cal-card" id="calendar" aria-labelledby="cal-title">
+        <div class="cal-head">
+          <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">‹</button>
+          <h2 id="cal-title">Calendar</h2>
+          <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">›</button>
+        </div>
+        <div class="cal-badges" id="cal-badges"></div>
+        <div class="cal-week" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="cal-grid" id="cal-grid" role="grid"></div>
+      </section>
+      <p class="hint">You can also use the number keys and Backspace</p>
+    </section>
+
+    <!-- Skill tree -->
+    <section id="screen-tree" class="screen" aria-labelledby="tree-title">
+      <header class="tree-head">
+        <button type="button" class="icon-btn" id="tree-back" aria-label="Back">‹</button>
+        <h2 id="tree-title">Skill Tree</h2>
+        <span class="tree-count" id="tree-count"></span>
+      </header>
+      <p class="tree-stars" id="tree-stars"></p>
+      <p class="tree-note">Tap to practice (mastered: star goals) · Long-press to erase</p>
+      <div class="tree-scroll" id="tree-scroll"><div class="tree-lanes" id="tree-lanes" aria-hidden="true"></div><div class="tree" id="tree"><svg class="tree-links" id="tree-links" aria-hidden="true"></svg></div></div>
+      <p class="toast" id="toast" role="status" hidden></p>
+    </section>
+
+    <!-- Trophies (id036) -->
+    <section id="screen-trophy" class="screen" aria-labelledby="trophy-title">
+      <header class="tree-head">
+        <button type="button" class="icon-btn" id="trophy-back" aria-label="Back">‹</button>
+        <h2 id="trophy-title">Trophies</h2>
+        <span class="tree-count" id="trophy-count"></span>
+      </header>
+      <div class="tr-filter" role="group" aria-label="Filter">
+        <button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="got" aria-pressed="false">Earned</button><button type="button" data-f="next" aria-pressed="false">Not yet</button><button type="button" data-f="soon" aria-pressed="false">Almost</button>
+      </div>
+      <div class="tr-scroll" id="tr-scroll"><div class="tr-list" id="tr-list"></div></div>
+    </section>
+
+    <!-- Collection (id041) -->
+    <section id="screen-collect" class="screen" aria-labelledby="collect-title">
+      <header class="tree-head">
+        <button type="button" class="icon-btn" id="collect-back" aria-label="Back">‹</button>
+        <h2 id="collect-title">Collection</h2>
+        <span class="tree-count" id="collect-count"></span>
+      </header>
+      <div class="co-preview" id="co-preview" aria-hidden="true"><div class="stamp co-mark" id="co-mark"></div><p class="co-now" id="co-now"></p></div>
+      <div class="co-tabs" id="co-tabs" role="group" aria-label="Categories"></div>
+      <div class="co-scroll" id="co-scroll"><p class="co-note" id="co-note"></p><div class="co-grid" id="co-grid"></div></div>
+    </section>
+
+    <!-- Play -->
+    <section id="screen-play" class="screen" aria-label="Play screen">
+      <header class="hud">
+        <button type="button" class="icon-btn back-btn" id="play-back" aria-label="Back to the title">‹</button>
+        <div class="pips" id="pips" aria-hidden="true"></div>
+        <div class="clock" aria-live="off"><span id="clock-label">Goal 2:40</span><b id="clock">0:00</b></div>
+        <span class="demo-tag" aria-hidden="true">DEMO</span>
+        <button type="button" class="icon-btn" id="mute" aria-label="Mute" aria-pressed="false">♪</button>
+      </header>
+      <div class="hud2">
+        <div class="tally"><span>Correct <b id="ok">0</b><small id="ok-total">/10</small></span><span class="ng">Oops <b id="ng">0</b></span></div>
+        <div class="combo" id="combo-box" aria-hidden="true"><b id="combo">0</b><small>combo</small><span class="combo-mult" id="combo-mult"></span><i class="combo-track"><i id="combo-bar"></i></i></div>
+        <div class="dopa" id="dopa-box"><small>Dopa</small><b id="dopa">0</b></div>
+      </div>
+      <div class="stage" id="stage" aria-hidden="true">
+        <svg class="bunting" viewBox="0 0 400 40" preserveAspectRatio="none"><path d="M0 4 Q200 34 400 4" fill="none" stroke="#1b1d4d" stroke-width="2.5"/><g id="flags"></g></svg>
+        <div class="spot spot-l"></div><div class="spot spot-r"></div>
+        <svg class="ground" viewBox="0 0 400 20" preserveAspectRatio="none"><path d="M4 12 Q60 6 120 11 T240 10 T396 12" fill="none" stroke="#1b1d4d" stroke-width="3" stroke-linecap="round"/></svg>
+      </div>
+      <section class="card" id="card" aria-labelledby="qtitle">
+        <div class="marquee" aria-hidden="true"></div>
+        <div class="card-top"><span class="chip" id="qtitle">Addition</span><span class="qno" id="qno">Q1</span></div>
+        <div class="sheet-wrap"><div class="sheet" id="sheet" role="group" aria-label="Problem"></div></div>
+        <p class="step-label" id="step-label" aria-live="polite">Ones place</p>
+        <div class="stamp" id="stamp" aria-hidden="true"></div>
+        <div class="reach-tag" id="reach-tag" aria-hidden="true">LAST DIGIT!</div>
+      </section>
+      <div class="pad" id="pad" role="group" aria-label="Number pad">
+        <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
+        <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
+        <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
+        <button type="button" data-key="Backspace" class="del" aria-label="Delete one digit">⌫</button><button type="button" data-key="0" class="zero">0</button>
+      </div>
+    </section>
+
+    <!-- Basic result -->
+    <section id="screen-result" class="screen" aria-labelledby="result-title">
+      <div class="result-card">
+        <p class="chip" id="result-title">Basic clear!</p>
+        <p class="score"><b id="r-score">100</b><span>pts</span></p>
+        <dl class="stats">
+          <div><dt>Correct</dt><dd id="r-ok">10</dd></div>
+          <div><dt>Oops</dt><dd id="r-ng">0</dd></div>
+          <div><dt>First-try rate</dt><dd id="r-rate">100%</dd></div>
+          <div><dt>Time</dt><dd id="r-time">1:23</dd></div>
+        </dl>
+        <p class="dopa-final"><small>Dopa</small><b id="r-dopa">0</b></p>
+        <div class="growth-box" id="r-growth"></div>
+        <p class="unlock" id="r-unlock"></p>
+        <div class="skill-news" id="r-skills"></div>
+        <div class="quest-mini" id="r-quests"></div>
+        <div class="actions">
+          <button type="button" id="go-extra" class="big-btn">Play Extra<small>90 seconds</small></button>
+          <button type="button" id="go-review" class="sub-btn review-btn" hidden>Redo missed problems</button>
+          <button type="button" id="go-tree" class="sub-btn" hidden>See Skill Tree</button>
+          <button type="button" id="go-again" class="sub-btn" hidden>Play again</button>
+          <button type="button" id="go-title" class="sub-btn">Done</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final result -->
+    <section id="screen-final" class="screen" aria-labelledby="final-title">
+      <div class="result-card">
+        <p class="chip" id="final-title">Extra finished!</p>
+        <p class="score"><b id="f-score">100</b><span>pts</span></p>
+        <p class="breakdown" id="f-break">Basic 100 + Extra 0</p>
+        <dl class="stats">
+          <div><dt>Extra correct</dt><dd id="f-ok">0</dd></div>
+          <div><dt>Extra oops</dt><dd id="f-ng">0</dd></div>
+          <div><dt>Basic oops</dt><dd id="f-bng">0</dd></div>
+          <div><dt>Basic time</dt><dd id="f-time">0:00</dd></div>
+        </dl>
+        <p class="dopa-final"><small>Dopa</small><b id="f-dopa">0</b></p>
+        <div class="skill-news" id="f-skills"></div>
+        <div class="quest-mini" id="f-quests"></div>
+        <div class="actions">
+          <button type="button" id="f-review" class="sub-btn review-btn" hidden>Redo missed problems</button>
+          <button type="button" id="f-tree" class="sub-btn" hidden>See Skill Tree</button>
+          <button type="button" id="again" class="big-btn">Done</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Settings (above #app, below particles and actors) -->
+  <div class="modal" id="settings" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+    <div class="modal-card">
+      <h2 id="settings-title" class="chip">Settings</h2>
+      <select id="lang" class="lang-pick" aria-label="Language" title="Language / 言語">
+        <option value="en" lang="en" selected>English</option>
+        <option value="ja" lang="ja">日本語</option>
+      </select>
+      <div class="set-row">
+        <span class="set-label">Number of problems</span>
+        <div class="pick" role="radiogroup" aria-label="Number of problems">
+          <button type="button" role="radio" data-count="6" aria-checked="false">6</button>
+          <button type="button" role="radio" data-count="10" aria-checked="true">10</button>
+          <button type="button" role="radio" data-count="14" aria-checked="false">14</button>
+        </div>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Sound</span>
+        <div class="set-inline">
+          <button type="button" class="toggle" data-toggle="sound" aria-pressed="true"><i aria-hidden="true">♪</i><b>On</b></button>
+          <input type="range" class="slider" id="volume" min="0" max="100" step="1" value="80" aria-label="Volume">
+        </div>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Motion <b id="motion-val">100%</b></span>
+        <input type="range" class="slider motion" id="motion" min="0" max="100" step="1" value="100" aria-label="Motion" aria-describedby="motion-note">
+        <p class="set-note" id="motion-note">At 0%, shaking, flashes, confetti and movement stop</p>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Demo play</span>
+        <button type="button" class="sub-btn demo-btn" id="demo-play">▶ Watch it play itself</button>
+        <p class="set-note">Tap the screen or press a key to stop (nothing is recorded)</p>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Data</span>
+        <button type="button" class="sub-btn danger reset-btn" id="reset-data" aria-describedby="reset-note">Reset everything</button>
+        <p class="set-note" id="reset-note">Erases all data and starts over from the beginning</p>
+      </div>
+      <button type="button" class="big-btn" id="close-settings">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="bonus" role="dialog" aria-modal="true" aria-labelledby="bonus-title" hidden>
+    <div class="modal-card bonus-card">
+      <h2 id="bonus-title" class="chip">Login bonus</h2>
+      <p class="bonus-run" id="bonus-run"></p>
+      <div class="bonus-card-grid" id="bonus-grid"></div>
+      <p class="bonus-note" id="bonus-note"></p>
+      <button type="button" class="big-btn" id="bonus-ok">Collect</button>
+    </div>
+  </div>
+
+  <div class="modal" id="skill-info" role="dialog" aria-modal="true" aria-labelledby="si-title" hidden>
+    <div class="modal-card si-card">
+      <p class="si-grade" id="si-grade"></p>
+      <h2 class="si-title" id="si-title"></h2>
+      <p class="si-stars" id="si-stars"></p>
+      <div class="si-next" id="si-next"></div>
+      <p class="si-note" id="si-note"></p>
+      <div class="confirm-actions">
+        <button type="button" class="sub-btn" id="si-close">Close</button>
+        <button type="button" class="sub-btn si-go" id="si-go">Practice</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="trophy-got" role="dialog" aria-modal="true" aria-labelledby="tg-title" hidden>
+    <div class="modal-card trophy-card">
+      <h2 id="tg-title" class="chip">New trophy!</h2>
+      <p class="tg-sub" id="tg-sub"></p>
+      <ul class="tg-list" id="tg-list"></ul>
+      <button type="button" class="big-btn" id="tg-ok">Awesome!</button>
+    </div>
+  </div>
+
+  <div class="modal" id="hammer" role="dialog" aria-modal="true" aria-labelledby="hammer-title" aria-describedby="hammer-msg" hidden>
+    <div class="modal-card hammer-card">
+      <h2 id="hammer-title" class="chip">Streak Hammer</h2>
+      <div class="hammer-art" id="hammer-art" aria-hidden="true"></div>
+      <p class="hammer-msg" id="hammer-msg"></p>
+      <p class="hammer-have" id="hammer-have"></p>
+      <div class="confirm-actions">
+        <button type="button" class="sub-btn" id="hammer-no">No thanks</button>
+        <button type="button" class="sub-btn hammer-yes" id="hammer-yes">Use it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="confirm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-msg" hidden>
+    <div class="modal-card confirm-card">
+      <h2 id="confirm-title" class="chip">Erase skill</h2>
+      <p class="confirm-msg" id="confirm-msg"></p>
+      <ul class="confirm-list" id="confirm-list"></ul>
+      <div class="confirm-actions">
+        <button type="button" class="sub-btn" id="confirm-no">Cancel</button>
+        <button type="button" class="sub-btn danger" id="confirm-yes">Erase</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="day-log" role="dialog" aria-modal="true" aria-labelledby="day-title" hidden>
+    <div class="modal-card">
+      <h2 id="day-title" class="chip">Plays</h2>
+      <ul class="day-list" id="day-list"></ul>
+      <button type="button" class="big-btn" id="close-day">Close</button>
+    </div>
+  </div>
+
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <svg id="actors" aria-hidden="true"><g id="actors-back"></g><g id="actors-front"></g></svg>
+  <div id="cutins" aria-hidden="true"></div>
+  <div id="flash" aria-hidden="true"></div>
+  <noscript>This game needs JavaScript to run.</noscript>
+</body>
+</html>

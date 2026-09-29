@@ -1,7 +1,7 @@
 // Daily quests (id035).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { QUEST, QUEST_MINUTES, dailyQuests, questMinutes, questEvent, ensureDay, allDone, claimReward, questDef } from '../app/js/quests.js';
+import { QUEST, QUEST_MINUTES, dailyQuests, questMinutes, questEvent, ensureDay, allDone, claimReward, questDef } from '../app/en/js/quests.js';
 
 const base = { count: 10, review: 3, hasNew: true, hasLearning: true, placed: true, extraOk: true, avgCells: 2.5 };
 const days = Array.from({ length: 120 }, (_, i) => { const d = new Date(2026, 0, 1 + i); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; });

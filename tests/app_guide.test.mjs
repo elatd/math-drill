@@ -1,7 +1,7 @@
 // Placement regressions use the reviewer's actual pc-4 geometry.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { rankGuideSpots } from '../app/js/guide.js';
+import { rankGuideSpots } from '../app/en/js/guide.js';
 
 const card = { left: 460, top: 452.4, right: 820, bottom: 663.4 };
 const hole = { left: 443, top: 371.4, right: 643.6, bottom: 433.4 };

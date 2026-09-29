@@ -1,8 +1,8 @@
 // Unlockable show (id041-id044).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CATS, ITEMS, ITEM, pickLook, unlockedIn, isUnlocked, defaultEquip, variant } from '../app/js/unlocks.js';
-import { TROPHY } from '../app/js/trophies.js';
+import { CATS, ITEMS, ITEM, pickLook, unlockedIn, isUnlocked, defaultEquip, variant } from '../app/en/js/unlocks.js';
+import { TROPHY } from '../app/en/js/trophies.js';
 
 test('catalogue: one base item per category, rewards point at real trophies, no trophy gives two', () => {
   for (const c of CATS) assert.equal(ITEMS.filter((it) => it.cat === c.key && it.base).length, 1, c.key);

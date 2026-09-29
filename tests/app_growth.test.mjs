@@ -1,7 +1,7 @@
 // Lifetime statistics and growth comparisons (id033-).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { emptyStats, statsFromHistory, noteSolve, notePlay, noteExtraStart, noteDopa } from '../app/js/growth.js';
+import { emptyStats, statsFromHistory, noteSolve, notePlay, noteExtraStart, noteDopa } from '../app/en/js/growth.js';
 
 test('statistics are seeded from an older play history (id033)', () => {
   const s = statsFromHistory([
@@ -38,7 +38,7 @@ test('solves, plays and extras add up; days count once (id033)', () => {
 });
 
 test('compared with before: only improvements, enough answers, at most three (id038)', async () => {
-  const { compareSkill, growthLines } = await import('../app/js/growth.js');
+  const { compareSkill, growthLines } = await import('../app/en/js/growth.js');
   const r = {
     days: [
       { d: '2026-08-20', n: 6, ms: 60000, f: 3, c: 6 }, // a month ago: 10 s a cell, 50%

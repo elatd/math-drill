@@ -1,7 +1,7 @@
 // Scoring and dopa curves for the public app (id014).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { extraPoints, extraTotal, basicDopaL, extraDopaL, extraProblemGain, fmtDopa, unitOf, unitLabel, addDopa, comboMult, comboMaxed, comboWindowMs, comboMilestone, DOPA_MAX_L } from '../app/js/scoring.js';
+import { extraPoints, extraTotal, basicDopaL, extraDopaL, extraProblemGain, fmtDopa, unitOf, unitLabel, addDopa, comboMult, comboMaxed, comboWindowMs, comboMilestone, DOPA_MAX_L } from '../app/en/js/scoring.js';
 
 test('extra points grow gently and stay in the 1000s for a very fast run', () => {
   assert.deepEqual([0, 1, 2, 3, 4].map(extraPoints), [10, 15, 20, 25, 30]);

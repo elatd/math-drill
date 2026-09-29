@@ -1,6 +1,6 @@
 # Japanese Math Drill — Calculation Scope and Skill List
 
-This document describes the calculations that Japanese Math Drill currently poses, the prerequisite relationships between skills, the conditions under which problems are generated, and how answers are entered. The numbers may change with future tuning. For the rules of the game as a whole, see `docs/SPEC.md`; for the skill definitions, `app/js/skills.js`; and for problem generation, `app/js/problems.js`.
+This document describes the calculations that Japanese Math Drill currently poses, the prerequisite relationships between skills, the conditions under which problems are generated, and how answers are entered. The numbers may change with future tuning. For the rules of the game as a whole, see `docs/SPEC.md`; for the skill definitions, `app/en/js/skills.js`; and for problem generation, `app/en/js/problems.js`.
 
 ## 1. Scope and structure
 

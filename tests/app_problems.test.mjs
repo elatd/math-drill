@@ -1,7 +1,7 @@
 // Validates generated column-arithmetic problems for the public app.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { makeRng, generate, BASIC_SETS, EXTRA_TIERS } from '../app/js/problems.js';
+import { makeRng, generate, BASIC_SETS, EXTRA_TIERS } from '../app/en/js/problems.js';
 
 const templates = [...new Set([...Object.values(BASIC_SETS).flat(), ...EXTRA_TIERS.flat()])];
 

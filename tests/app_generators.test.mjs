@@ -1,8 +1,8 @@
 // Every skill generator yields consistent, well-formed problems (id020).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { makeRng, makeProblem, signature } from '../app/js/problems.js';
-import { SKILLS } from '../app/js/skills.js';
+import { makeRng, makeProblem, signature } from '../app/en/js/problems.js';
+import { SKILLS } from '../app/en/js/skills.js';
 
 const num = (s) => Number(String(s).replace(/,/g, ''));
 // Evaluate "a op b" texts produced by the generators.

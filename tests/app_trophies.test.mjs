@@ -1,10 +1,10 @@
 // Trophies (id036).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { TROPHIES, TROPHY, SERIES, CATS, trophyMetrics, evaluate, seriesView, earnedCount } from '../app/js/trophies.js';
-import { emptyProgress, masterWithAncestors } from '../app/js/session.js';
-import { emptyStats } from '../app/js/growth.js';
-import { SKILLS } from '../app/js/skills.js';
+import { TROPHIES, TROPHY, SERIES, CATS, trophyMetrics, evaluate, seriesView, earnedCount } from '../app/en/js/trophies.js';
+import { emptyProgress, masterWithAncestors } from '../app/en/js/session.js';
+import { emptyStats } from '../app/en/js/growth.js';
+import { SKILLS } from '../app/en/js/skills.js';
 
 test('the catalogue: more than 100 trophies, unique ids, rising steps, known categories', () => {
   assert.ok(TROPHIES.length >= 100, `${TROPHIES.length}`);
@@ -54,7 +54,7 @@ test('grade and lane completion, all modes', () => {
 });
 
 test('expanded catalogue (id045): 300+, new series measured, rewards all resolvable', async () => {
-  const { ITEMS } = await import('../app/js/unlocks.js');
+  const { ITEMS } = await import('../app/en/js/unlocks.js');
   assert.ok(TROPHIES.length >= 300, `${TROPHIES.length}`);
   for (const it of ITEMS.filter((x) => !x.base)) assert.equal(TROPHY[it.trophy].reward, it.id);
   assert.ok(Math.max(...SERIES.find((s) => s.key === 'items').items.map((x) => x.need)) <= ITEMS.length);

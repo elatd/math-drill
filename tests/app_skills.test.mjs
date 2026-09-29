@@ -1,7 +1,7 @@
 // Skill tree data integrity (id019).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { SKILLS, SKILL, DEPTH, LANES } from '../app/js/skills.js';
+import { SKILLS, SKILL, DEPTH, LANES } from '../app/en/js/skills.js';
 
 test('ids are unique and prerequisites exist', () => {
   assert.equal(new Set(SKILLS.map((s) => s.id)).size, SKILLS.length);

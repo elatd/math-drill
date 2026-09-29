@@ -1,9 +1,9 @@
 // Session planning and mastery (id021, id022, id023).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { makeRng } from '../app/js/problems.js';
-import { SKILL, SKILLS, MASTERY } from '../app/js/skills.js';
-import { ORDER, PLACEMENT, emptyProgress, recordResult, isUnlocked, isMastered, stateOf, gradePlan, levelPlan, placementPlan, frontier, problemFor, masterWithAncestors, dependents, relockTargets, relockSkill, TREE_LAYOUT, TREE_SUB, TREE_UPPER, TIMES_MAX, FIRST_MAX } from '../app/js/session.js';
+import { makeRng } from '../app/en/js/problems.js';
+import { SKILL, SKILLS, MASTERY } from '../app/en/js/skills.js';
+import { ORDER, PLACEMENT, emptyProgress, recordResult, isUnlocked, isMastered, stateOf, gradePlan, levelPlan, placementPlan, frontier, problemFor, masterWithAncestors, dependents, relockTargets, relockSkill, TREE_LAYOUT, TREE_SUB, TREE_UPPER, TIMES_MAX, FIRST_MAX } from '../app/en/js/session.js';
 
 test('orders respect prerequisites', () => {
   for (const order of [ORDER, PLACEMENT]) {
@@ -136,7 +136,7 @@ test('timed answers keep recent times, one aggregate per day and the first probl
 });
 
 test('stars: 1 at mastery, then accuracy, speed, retention and mastery of speed; never down (id037)', async () => {
-  const { starsOf, nextStar, baseMs, STAR_RULE } = await import('../app/js/session.js');
+  const { starsOf, nextStar, baseMs, STAR_RULE } = await import('../app/en/js/session.js');
   const prog = emptyProgress();
   const id = 'g2-kuku25'; // grade 2, one answer cell
   const fast = baseMs(2, 1) * 0.5; const ok = baseMs(2, 1) * 0.9; const slow = baseMs(2, 1) * 1.5;
@@ -178,8 +178,8 @@ test('stars: 1 at mastery, then accuracy, speed, retention and mastery of speed;
 });
 
 test('time capsule: a first problem returns after 30 days, once, for mastered skills (id039)', async () => {
-  const { pickCapsule, useCapsule, CAPSULE } = await import('../app/js/session.js');
-  const { capsuleCompare } = await import('../app/js/growth.js');
+  const { pickCapsule, useCapsule, CAPSULE } = await import('../app/en/js/session.js');
+  const { capsuleCompare } = await import('../app/en/js/growth.js');
   const prog = emptyProgress();
   const rng = makeRng(3);
   const day0 = Date.UTC(2026, 7, 1);
@@ -204,7 +204,7 @@ test('time capsule: a first problem returns after 30 days, once, for mastered sk
 });
 
 test('rust: one level, at most three oldest, polished by one first-try answer, review slots first (id040)', async () => {
-  const { rustyOf, RUST } = await import('../app/js/session.js');
+  const { rustyOf, RUST } = await import('../app/en/js/session.js');
   const prog = emptyProgress();
   const now = Date.UTC(2026, 9, 1);
   const ago = (d) => now - d * 864e5;

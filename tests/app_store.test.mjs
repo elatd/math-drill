@@ -1,7 +1,7 @@
 // Local persistence for the public app (id016, id017).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import * as store from '../app/js/store.js';
+import * as store from '../app/en/js/store.js';
 
 function memory(initial = {}) {
   const m = new Map(Object.entries(initial));

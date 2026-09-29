@@ -28,8 +28,8 @@ Exceptions to the MIT License
 
    The MIT License above does NOT apply to the mascot character "Dopakichi"
    (ドパキチ) or to the "Dopa Drill" (ドパドリル) name and logo, including their
-   designs, shapes and likenesses as drawn in app/js/dopakichi.js,
-   docs/dopakichi.svg, app/icon.svg and the logo in app/index.html
+   designs, shapes and likenesses as drawn in app/en/js/dopakichi.js,
+   docs/dopakichi.svg, app/en/icon.svg and the logo in app/en/index.html
    (the "Characters"). Copyright (c) 2026 gear_machine.
 
    You may, without asking, use the Characters for non-commercial purposes,
@@ -53,5 +53,5 @@ Exceptions to the MIT License
 
 2. Fonts
 
-   The fonts in app/fonts/ (Dela Gothic One, Zen Maru Gothic) are licensed under
+   The fonts in app/en/fonts/ (Dela Gothic One, Zen Maru Gothic) are licensed under
    the SIL Open Font License 1.1. See the OFL-*.txt files in that directory.

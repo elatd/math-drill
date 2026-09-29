@@ -21,7 +21,7 @@ The mascot, Dopakichi, carries each digit you type into place and celebrates whe
 
 ## Languages
 
-English is the default. The globe menu at the top of **Settings** switches to Japanese (日本語) and back. The choice is remembered on the device, so the game opens in the last language picked.
+English is the default. The globe menu at the top of **Settings** switches to Japanese (日本語) and back. The choice is remembered on the device, so `/` opens the last language picked.
 
 The Japanese version is the original Dopa Drill (ドパドリル) itself, kept in `app/ja/` exactly as it is in the original repository. The only additions are:
 
@@ -31,7 +31,7 @@ The Japanese version is the original Dopa Drill (ドパドリル) itself, kept i
 
 Both versions share the same save data, so progress carries over when you switch. The language choice is stored apart from the game data, so **Reset everything** leaves it as it is.
 
-`/ja/` always opens the Japanese version. `/?lang=en` always opens the English one, whatever was picked last.
+`/en/` always opens the English version and `/ja/` always opens the Japanese version. `/?lang=en` and `/?lang=ja` override the saved choice when opening `/`.
 
 ## About this localization
 
@@ -54,7 +54,7 @@ No build step is needed. Serve `app/` as static files:
 python3 -m http.server 8000 -d app
 ```
 
-Then open `http://localhost:8000/` in a browser (`http://localhost:8000/ja/` for the Japanese version). The game uses ES modules, so opening the file directly with `file://` does not work.
+Then open `http://localhost:8000/en/` in a browser (`http://localhost:8000/ja/` for the Japanese version). The root URL redirects to the saved language, or English by default. The game uses ES modules, so opening the file directly with `file://` does not work.
 
 ## Tests
 
@@ -68,7 +68,7 @@ node --test tests/*.test.mjs
 
 | Path | Contents |
 | --- | --- |
-| `app/` | The game in English (ES modules, no dependencies) |
+| `app/en/` | The game in English (ES modules, no dependencies) |
 | `app/ja/` | The original Japanese game, with the language menu and the back button added |
 | `docs/SPEC.md` | Specification |
 | `docs/curriculum.md` | Skills by grade and the design of the skill tree |
@@ -80,7 +80,7 @@ node --test tests/*.test.mjs
 
 - Source code: MIT License
 - The character "Dopakichi" and the "Dopa Drill" name and logo are not covered by the MIT License. They may be used freely in non-commercial fan works (see below).
-- Fonts (`app/fonts/`): SIL Open Font License 1.1
+- Fonts (`app/en/fonts/` and `app/ja/fonts/`): SIL Open Font License 1.1
 
 See [LICENSE](LICENSE) for details.
 

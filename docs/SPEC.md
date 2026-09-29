@@ -397,18 +397,18 @@ The original Japanese game is published at [dopa-drill.tanosix.com](https://dopa
 
 | File or directory | Role |
 | --- | --- |
-| `app/index.html`, `app/style.css` | Screens and styles |
-| `app/js/main.js` | Coordinates game flow, input, screens and effects |
-| `app/js/guide.js` | First-run guide and help, placement of the guide elements |
-| `app/js/skills.js`, `app/js/problems.js` | Skill definitions, problem generation, input steps |
-| `app/js/session.js` | Problem planning, mastery, stars, rust, time capsule |
-| `app/js/scoring.js`, `app/js/growth.js` | Score, Dopa and combo; growth statistics and comparisons |
-| `app/js/quests.js`, `app/js/trophies.js`, `app/js/unlocks.js` | Quests, achievements, effects catalog |
-| `app/js/store.js` | Storage, history, login, hammer, reset |
-| `app/js/dopakichi.js` | The mascot as an SVG split into parts, and its acting |
-| `app/js/fx.js`, `app/js/bg.js` | Canvas 2D particles and WebGL background |
-| `app/js/audio.js`, `app/js/core.js` | Web Audio synthesis; clock, interpolation and springs |
-| `app/fonts/` | Local subsets of Dela Gothic One and Zen Maru Gothic (the same families as the original), re-subset for the English text. SIL Open Font License |
+| `app/en/index.html`, `app/en/style.css` | Screens and styles |
+| `app/en/js/main.js` | Coordinates game flow, input, screens and effects |
+| `app/en/js/guide.js` | First-run guide and help, placement of the guide elements |
+| `app/en/js/skills.js`, `app/en/js/problems.js` | Skill definitions, problem generation, input steps |
+| `app/en/js/session.js` | Problem planning, mastery, stars, rust, time capsule |
+| `app/en/js/scoring.js`, `app/en/js/growth.js` | Score, Dopa and combo; growth statistics and comparisons |
+| `app/en/js/quests.js`, `app/en/js/trophies.js`, `app/en/js/unlocks.js` | Quests, achievements, effects catalog |
+| `app/en/js/store.js` | Storage, history, login, hammer, reset |
+| `app/en/js/dopakichi.js` | The mascot as an SVG split into parts, and its acting |
+| `app/en/js/fx.js`, `app/en/js/bg.js` | Canvas 2D particles and WebGL background |
+| `app/en/js/audio.js`, `app/en/js/core.js` | Web Audio synthesis; clock, interpolation and springs |
+| `app/en/fonts/` | Local subsets of Dela Gothic One and Zen Maru Gothic (the same families as the original), re-subset for the English text. SIL Open Font License |
 | `app/ja/` | The original Japanese game, unchanged apart from the language menu, the play screen's back button and fonts with the two characters of 言語 added. It shares the save data with the English version |
 | `tests/` | Tests for problem generation, judging, storage, growth and more |
 | `tools/build_fonts.sh` | Regenerates the font subsets when the on-screen text changes |
